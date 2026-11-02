@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano Drone Failsafes | DGCA Compliance</title>
+    <style>
+        /* Base (Light Mode) Variables */
+        :root {
+            color-scheme: light dark; /* Tells the browser to adapt scrollbars & UI */
+            --bg-color: #f3f4f6;
+            --container-bg: #ffffff;
+            --text-color: #333333;
+            --heading-color: #111827;
+            --accent-color: #3b82f6;
+            --link-color: #2563eb;
+            --license-bg: #e2e8f0;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --meta-color: #6b7280;
+        }
+
+        /* Dark Mode Variables (Automatically kicks in if system is set to dark) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --container-bg: #1e1e1e;
+                --text-color: #e0e0e0;
+                --heading-color: #ffffff;
+                --accent-color: #3b82f6;
+                --link-color: #60a5fa;
+                --license-bg: #2d3748;
+                --border-color: #333333;
+                --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+                --meta-color: #a0aec0;
+            }
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        h1 {
+            color: var(--heading-color);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        h2 {
+            color: var(--heading-color);
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: color 0.3s ease, border-color 0.3s ease;
+        }
+
+        h3 {
+            color: var(--heading-color);
+        }
+
+        .author-meta {
+            color: var(--meta-color);
+            font-size: 1.1rem;
+            font-style: italic;
+            transition: color 0.3s ease;
+        }
+
+        .author-meta a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .author-meta a:hover {
+            text-decoration: underline;
+        }
+
+        .section-card {
+            background-color: var(--container-bg);
+            padding: 1.5rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            color: var(--meta-color);
+            font-size: 0.9rem;
+        }
+
+        /* Licenses Section Special Styling */
+        .license-box {
+            background-color: var(--license-bg);
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            margin-bottom: 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Adding Smart Failsafes to Nano Drones to Follow DGCA Rules</h1>
+            <div class="author-meta">
+                A Complete Project Proposal by PG | <a href="https://github.com/MePython313" target="_blank">@MePython313</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="section-card">
+                <h2>Abstract</h2>
+                <p>This project idea is all about making custom, lightweight drones safe and legal to fly in India. The DGCA says that drones weighing under 250 grams are "Nano" drones. The cool thing is you don't need a pilot's license, a UIN, or crazy paperwork to fly them for fun, as long as you stay in safe Green Zones and don't fly higher than 15 meters (about 50 feet).</p>
+                <p>But when you design a drone from scratch, it doesn't automatically know where that 15-meter limit is, and it could easily fly away or hurt someone if it breaks. To fix this, I am proposing a complete safety system with three main parts. First, I want to program a "digital ceiling" and a Return-to-Home (RTH) failsafe with an auto-landing laser into an Arduino flight controller. Second, I want to add an independent, spring-loaded micro-parachute just in case the motors totally fail mid-air. Finally, for the future, I plan to build a custom AI brain using a tiny Raspberry Pi to help the drone dodge obstacles on its own.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>Introduction</h2>
+                <p>In India, drone rules are based on how much the drone weighs. If a drone and its battery weigh less than 250 grams, it's a Nano drone. Bigger drones need a ton of paperwork, government registration, and a trained pilot with an official license. But for Nano drones, the DGCA lets you skip all that. This is awesome for students and makers because we can design and test drones quickly without breaking the law.</p>
+                <p>But there is a catch. You can only fly Nano drones in safe areas, you have to be able to see them at all times, and you absolutely cannot fly higher than 15 meters off the ground. The problem is that custom Nano drones have powerful motors. If you push the joystick a little too hard, the drone could shoot past 15 meters in a split second. Also, if you lose radio connection, the drone could fly away. And if a motor breaks, it could drop like a rock onto someone's head. That's why my idea is to build layers of automatic safety directly into the drone.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>Methodology: The Digital Ceiling & Return-to-Home</h2>
+                <p>To make the main failsafes work, I plan to build a custom flight controller using an Arduino. The Arduino would run a loop 250 times a second to keep the drone stable, using sensors like a gyroscope, a barometer (to measure air pressure for height), a laser Time-of-Flight sensor (to measure exact distance to the ground), and a GPS.</p>
+                
+                <h3>The 15-Meter Lock</h3>
+                <p>To keep the drone under the legal limit, I want to write a software lock. My code would mix the barometer and laser data to get the exact height. If the drone reaches 13.5 meters, it would start ignoring extra throttle from the remote. If it hits exactly 15 meters, the Arduino would completely lock the height. Even if I push the throttle to 100%, the math in the code would stop it from going any higher than 14.8 meters.</p>
+                
+                <h3>Return-to-Home (RTH)</h3>
+                <p>I also want to code a failsafe for when the remote loses its signal. The Arduino would constantly check the radio connection. If the signal is gone for a whole second, the drone would take over. First, it would stop and hover. Then, it would adjust its height to a safe 10 meters so it stays legal. Using the GPS, it would calculate the angle to fly back to where it took off and slowly fly home at 2.5 meters per second.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>The Perfect Auto-Landing Feature</h2>
+                <p>Once the drone flies back and is hovering exactly over the spot where I launched it, it wouldn’t just drop out of the sky or slam into the dirt. Instead, it would use a smooth auto-landing feature.</p>
+                <p>While it's dropping, the laser sensor pointing underneath would constantly shoot an invisible beam to measure the exact distance to the ground—kind of like a bat using echolocation, but with light. The Arduino brain would watch these measurements super closely. The second the laser realizes the floor is only a few inches away, it would instantly cut the power to all four motors at the exact same time. This means the drone would do a perfectly smooth, automatic touchdown every single time, without me even having to touch the remote control!</p>
+            </div>
+
+            <div class="section-card">
+                <h2>Emergency Micro-Parachute</h2>
+                <p>Even with smart code and perfect auto-landing, hardware can still break. If the drone's battery suddenly dies or a propeller snaps mid-air, the software failsafes won't work because the motors can't spin to keep it stable. The drone would drop fast, which is a huge safety hazard for anyone standing below.</p>
+                <p>To prevent it from landing on someone's head, my idea is to attach a tiny, spring-loaded micro-parachute to the top of the drone. I want to connect a separate, independent sensor module with its own tiny coin-cell battery to the parachute. This sensor would constantly monitor if the drone is falling. If it detects that the drone is in free-fall and dropping dangerously fast, it would instantly trigger a tiny motor to pop the parachute open. Since Nano drones are so light, a parachute the size of a handkerchief would be enough to slow the drone down to a gentle float, making sure it lands safely.</p>
+            </div>
+
+            <div class="section-card">
+                <h2>Future Scope: Raspberry Pi Custom AI</h2>
+                <p>Right now, this proposal relies on strict math rules in the Arduino to fly safely, which is fine, but it could be smarter at avoiding obstacles. For the next phase of this idea, I want to create my own custom AI.</p>
+                <p>Instead of using a pre-made AI on a heavy laptop, I want to run this custom AI on a Raspberry Pi that I can actually attach directly to the drone. A board like the Raspberry Pi Zero 2 W is super tiny and only weighs about 9 grams, so it easily fits inside the 250-gram Nano drone weight limit.</p>
+                <p>The idea is for the Arduino to handle the strict DGCA safety rules and motor controls, while sending its sensor data to the onboard Raspberry Pi. The custom AI on the Pi would act like a computer vision brain, looking at all the data and downward-facing camera images in real-time to spot problems—like if the drone is about to crash into a wall or a tree. Then, the Pi would send instructions back to the Arduino to change directions and dodge the obstacle. This way, the drone has two brains working together: an Arduino for following the law, and a custom Raspberry Pi AI for flying smart!</p>
+            </div>
+
+            <div class="section-card">
+                <h2>Open Source Licensing</h2>
+                <p>This project is currently in the proposal phase. The written concepts, documentation, and layout of this proposal are published under a Creative Commons license to protect the idea while keeping it open for the community to discuss.</p>
+                
+                <div class="license-box">
+                    <strong>This Proposal & Documentation: CC BY-SA 4.0</strong><br>
+                    Others can share, discuss, and adapt this written proposal, provided they give credit to the original author and share their versions under the exact same terms.
+                </div>
+
+                <h3>Planned Future Licenses</h3>
+                <p>Once this project moves from the idea phase to the building phase, the actual files will be released under the following open-source licenses:</p>
+                
+                <div class="license-box">
+                    <strong>Future Software (Arduino & AI Code): GNU GPLv3</strong><br>
+                    When the flight controller and AI code are written, they will be open-source. Anyone will be able to use or change the code, but if they share or sell a product using it, they must make their modified code open-source too.
+                </div>
+                
+                <div class="license-box">
+                    <strong>Future Hardware (Parachute & PCB Designs): CERN-OHL-S</strong><br>
+                    When the 3D files and circuit boards are designed, they will be shared so that if someone makes a better version and distributes it, they are legally required to share their new design files with the world.
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 PG. Published on GitHub Pages.</p>
+        </footer>
+    </div>
+</body>
+</html>
